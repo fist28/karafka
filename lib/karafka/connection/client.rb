@@ -32,6 +32,7 @@ module Karafka
           kafka_consumer.each_message(*settings) { |message| yield([message]) }
         end
       rescue Kafka::ProcessingError => error
+        byebug
         # If there was an error during consumption, we have to log it, pause current partition
         # and process other things
         Karafka.monitor.instrument(
